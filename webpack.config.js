@@ -6,7 +6,7 @@ module.exports = {
     mode: "development",
     output: {
       path: path.resolve(__dirname, "public/js"),
-      filename: "bundle.js"
+      filename: "main.js"
     },
     module: {
       rules: [
@@ -14,13 +14,19 @@ module.exports = {
           test: /\.js$/,
           exclude: /(node_modules)/,
           use: [
-            {
+           {
               loader: "babel-loader",
               options: {
                 presets: ["babel-preset-env"]
               }
+           },
+           {
+              loader: "eslint-loader",
+              options: {
+                fix: true
+              }
            }, 
-           "eslint-loader"
+           
         ]
         }
       ]

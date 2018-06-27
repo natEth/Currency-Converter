@@ -38,6 +38,6 @@ export default class CurrencyService {
                     resolve(result)
                 })
                 .catch(error => reject(error))
-        })        
+        })
     }
 }

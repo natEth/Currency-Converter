@@ -1,11 +1,10 @@
 {
-  "name": "CurrencyConverterBasic",
+  "name": "currency_converter",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --watch",
-    "start": "webpack --watch & webpack-dev-server --open-page 'webpack-dev-server'",
     "build": "webpack --config webpack.config.js"
   },
   "keywords": [],
