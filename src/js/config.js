@@ -12,3 +12,10 @@ export const CONVERT_BUTTON_ID = 'convert'
 export const TO_CURRENCY_VALUE_INPUT_ID = 'toCurrencyValue'
 export const TO_CURRENCY_SELECT_ID = 'toCurrency'
 
+
+//IDB
+export const DATABASE_NAME = 'currencyDB'
+export const CURRENCIES_STORE_NAME = 'currencies'
+
+export const IDB_TRANSACTION_TYPE_READ_ONLY = 'readonly'
+export const IDB_TRANSACTION_TYPE_READ_WRITE = 'readwrite'

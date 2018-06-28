@@ -18,10 +18,11 @@
     "babel-preset-env": "^1.7.0",
     "eslint": "^5.0.1",
     "eslint-loader": "^2.0.0",
-    "webpack-dev-server": "^3.1.4"
-  },
-  "dependencies": {
+    "webpack-dev-server": "^3.1.4",
     "webpack": "^4.12.1",
     "webpack-cli": "^3.0.8"
+  },
+  "dependencies": {
+    "idb": "^2.1.3"
   }
 }

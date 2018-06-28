@@ -1,43 +1,46 @@
+import { LIST_CURRENCIES_API_URL, CONVERT_CURRENCIES_API_URL } from './config';
+import Currency from './Currency';
+import localStorageService from './LocalStorageService';
 
-import { LIST_CURRENCIES_API_URL, CONVERT_CURRENCIES_API_URL } from './config'
-import Currency from './Currency'
 
 export default class CurrencyService {
     
     static getListOfCurrencies(){
-        return new Promise((resolve, reject) => {
-            fetch(LIST_CURRENCIES_API_URL).then((fetchResponse) => {
-                return fetchResponse.json()
-            })
-            .catch((error) => reject(error))
-            .then(json => {
-                let results = []
-                
-                Object.values(json.results).forEach((value) => {
-                    //TODO: find out if this is the best way to pass currencies
-                     results.push(new Currency(value.id, value.currencySymbol, value.currencyName))
-                })
-                resolve(results)
-            })
-            .catch(error => reject(error))
+        return localStorageService.getAllCurrencies().then(currencies => {
+            if(currencies && 0 !== currencies.length)
+                return new Promise(resolve => resolve(currencies)) //TODO: again is this the best way to do this
+
+            return this.fetchCurrenciesFromRemote()
         })
+    }
+
+    static fetchCurrenciesFromRemote(){
+        return fetch(LIST_CURRENCIES_API_URL)
+                    .then((fetchResponse) =>  fetchResponse.json())
+                    .then(json => {
+                        let results = []
+                        
+                        Object.values(json.results).forEach((value) => {
+                            //TODO: find out if this is the best way to pass currencies (we could pass them as is)
+                            let currency = new Currency(value.id, value.currencySymbol, value.currencyName);
+                            localStorageService.saveCurrency(currency);
+                            results.push(currency);
+                        })
+                        return results;
+                    });
     }
 
     static convert(fromCurrency, toCurrency, currentValue){
        
-        let conversionKey = `${fromCurrency}_${toCurrency}`
+        let conversionQuery = `${fromCurrency}_${toCurrency}`
 
-        let requestUrl = `${CONVERT_CURRENCIES_API_URL}?q=${conversionKey}`
+        let requestUrl = `${CONVERT_CURRENCIES_API_URL}?q=${conversionQuery}`
 
-        return new Promise((resolve, reject) => {
-            fetch(requestUrl)
-                .then(response => response.json() )
-                .catch(error => reject(error))
+        return fetch(requestUrl)
+                .then(response => response.json())
                 .then(json => {
-                    let result = parseFloat(json.results[conversionKey].val)
-                    resolve(result)
+                    let result = parseFloat(json.results[conversionQuery].val)
+                    return result * currentValue
                 })
-                .catch(error => reject(error))
-        })
     }
 }

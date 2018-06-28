@@ -3,11 +3,12 @@ const path = require('path');
 module.exports = {
     context: path.join(__dirname, "."),
     entry: "./src/js/index.js",
-    mode: "development",
+    mode: "production",
     output: {
       path: path.resolve(__dirname, "public/js"),
       filename: "main.js"
     },
+    devtool: 'source-map',
     module: {
       rules: [
         {
