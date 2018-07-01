@@ -6,7 +6,7 @@ module.exports = {
 //    mode: "production",
     mode: "development",
     output: {
-      path: path.resolve(__dirname, "public/js"),
+      path: path.resolve(__dirname, "docs/js"),
       filename: "main.js"
     },
     devtool: 'source-map',

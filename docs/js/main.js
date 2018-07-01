@@ -823,7 +823,7 @@ function trackInstalling(serviceWorker) {
 
 function registerServiceWorker() {
     if (navigator.serviceWorker) {
-        navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(function (reg) {
+        navigator.serviceWorker.register('/Currency-Converter/sw.js', { scope: '/Currency-Converter' }).then(function (reg) {
 
             if (!navigator.serviceWorker.controller) return;
 
