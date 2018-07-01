@@ -746,8 +746,8 @@ Object.defineProperty(exports, "__esModule", {
 
 
 //API
-var API_URL = exports.API_URL = 'http://localhost:3000/';
-// export const API_URL = 'https://free.currencyconverterapi.com/'
+// export const API_URL = 'http://localhost:3000/'
+var API_URL = exports.API_URL = 'https://free.currencyconverterapi.com/';
 var LIST_CURRENCIES_API_URL = exports.LIST_CURRENCIES_API_URL = API_URL + 'api/v5/currencies';
 var CONVERT_CURRENCIES_API_URL = exports.CONVERT_CURRENCIES_API_URL = API_URL + 'api/v5/convert';
 var COMPACT_QUEARY_PARAM = exports.COMPACT_QUEARY_PARAM = 'compact=ultra';

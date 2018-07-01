@@ -5,35 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="img/favicon.ico" rel="icon" type="image/x-icon" />
-    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> -->
     <link rel="stylesheet" href="css/main.css">
     <title>Currency Converter</title>
 </head>
 <body>    
-    <h1>Currency Converter</h1>
-    <div class="form-elements">     
-        <div class="col-3">
-            <span>From: </span>
-            <select name="fromCurrency"  id="fromCurrency">
-                <option>loading options..</option>  
-            </select>
-        </div>   
-        <div class="col-3">
-            <span>To: </span>
-            <select name="toCurrency" id="toCurrency">
-                <option>loading options..</option>
-            </select>
-        </div>
-        <div class="col-3">
-            <input  type="number"  name="fromCurrencyValue" id="fromCurrencyValue"/>
-        </div>
-        <div class="col-3">
-            <input type="button" name="Convert" value="Convert" id="convert" />
-        </div>
-        <div class="col-3">
-            <input type="number" name="toCurrencyValue" id="toCurrencyValue" readonly="true" />
-        </div>
-    </div>
+    <div id="login">
+            
+            <form id="login_form">
+                 
+                <div class="header">
+                     Currency Converter
+                </div>
+
+
+                <div class="labelContainer">
+                        <label for="fromCurrencyValue">Amount: </span>
+                 </div>
+
+                <div class="field_container">
+                    <input  type="number"  name="fromCurrencyValue" id="fromCurrencyValue"/>
+                </div>
+                
+                <div class="labelContainer">
+                     <label for="fromCurrency">From Currency: </span>
+                </div>
+                <div class="field_container">                        
+                        <select name="fromCurrency"  id="fromCurrency">
+                            <option>Loading options..</option>  
+                        </select>
+                </div>
+                <div class="labelContainer">
+                        <label for="toCurrency">To Currency: </span>
+                </div>
+
+                <div class="field_container">
+                        <select name="toCurrency"  id="toCurrency">
+                            <option>Loading options..</option>  
+                        </select>
+                </div>
+                <div class="field_container buttonContainer">
+                    <div name="Convert" class="button" id="convert">
+                            <span class="button_text">Convert</span>
+                    </div>
+                </div>
+                <div class="labelContainer">
+                        <label for="toCurrencyValue">Result: </span>
+                </div>
+                <div class="field_container">
+                      <input type="text" name="toCurrencyValue" id="toCurrencyValue" readonly="true" />
+                </div>
+            </form>
     <script src="js/main.js" charset="utf-8"></script>
+    
 </body>
 </html>

@@ -2,8 +2,8 @@
 
 
 //API
-export const API_URL = 'http://localhost:3000/'
-// export const API_URL = 'https://free.currencyconverterapi.com/'
+// export const API_URL = 'http://localhost:3000/'
+export const API_URL = 'https://free.currencyconverterapi.com/'
 export const LIST_CURRENCIES_API_URL = API_URL + 'api/v5/currencies'
 export const CONVERT_CURRENCIES_API_URL = API_URL +  'api/v5/convert'
 export const COMPACT_QUEARY_PARAM = 'compact=ultra'
