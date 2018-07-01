@@ -1,5 +1,5 @@
 import currencyService from './CurrencyService'
-import { TO_CURRENCY_VALUE_INPUT_ID, FROM_CURRENCY_SELECT_ID, TO_CURRENCY_SELECT_ID, CONVERT_BUTTON_ID, FROM_CURRENCY_VALUE_INPUT_ID } from './config'
+import { TO_CURRENCY_VALUE_INPUT_ID, FROM_CURRENCY_SELECT_ID, TO_CURRENCY_SELECT_ID, CONVERT_BUTTON_ID, FROM_CURRENCY_VALUE_INPUT_ID, ROOT_PATH} from './config'
 import domHelper from './DomHelper'
 
 function fetchingListOfCurrencies(){
@@ -33,7 +33,7 @@ function trackInstalling(serviceWorker){
 
 function registerServiceWorker(){
     if(navigator.serviceWorker){
-        navigator.serviceWorker.register('/Currency-Converter/sw.js', {scope: '/Currency-Converter/'})
+        navigator.serviceWorker.register(`/${ROOT_PATH}/sw.js`, {scope: `/${ROOT_PATH}/`})
                 .then(function(reg){
                        
                       if(!navigator.serviceWorker.controller)

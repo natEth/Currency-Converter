@@ -752,6 +752,10 @@ var LIST_CURRENCIES_API_URL = exports.LIST_CURRENCIES_API_URL = API_URL + 'api/v
 var CONVERT_CURRENCIES_API_URL = exports.CONVERT_CURRENCIES_API_URL = API_URL + 'api/v5/convert';
 var COMPACT_QUEARY_PARAM = exports.COMPACT_QUEARY_PARAM = 'compact=ultra';
 
+//Service Worker
+// export const ROOT_PATH = 'docs'
+var ROOT_PATH = exports.ROOT_PATH = 'Currency-Converter';
+
 //DOM IDS
 var FROM_CURRENCY_VALUE_INPUT_ID = exports.FROM_CURRENCY_VALUE_INPUT_ID = 'fromCurrencyValue';
 var FROM_CURRENCY_SELECT_ID = exports.FROM_CURRENCY_SELECT_ID = 'fromCurrency';
@@ -823,7 +827,7 @@ function trackInstalling(serviceWorker) {
 
 function registerServiceWorker() {
     if (navigator.serviceWorker) {
-        navigator.serviceWorker.register('/Currency-Converter/sw.js', { scope: '/Currency-Converter' }).then(function (reg) {
+        navigator.serviceWorker.register('/' + _config.ROOT_PATH + '/sw.js', { scope: '/' + _config.ROOT_PATH + '/' }).then(function (reg) {
 
             if (!navigator.serviceWorker.controller) return;
 
