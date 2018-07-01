@@ -9,8 +9,8 @@ export const CONVERT_CURRENCIES_API_URL = API_URL +  'api/v5/convert'
 export const COMPACT_QUEARY_PARAM = 'compact=ultra'
 
 //Service Worker
-export const ROOT_PATH = 'docs'
-// export const ROOT_PATH = 'Currency-Converter'
+// export const ROOT_PATH = 'docs'
+export const ROOT_PATH = 'Currency-Converter'
 
 
 //IDB
