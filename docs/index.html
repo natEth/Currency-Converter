@@ -7,6 +7,7 @@
     <link href="img/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="css/main.css">
     <title>Currency Converter</title>
+    <meta name="Description" content="Currency Conver app using the free api currencyconverterapi.com">
 </head>
 <body>    
     <div id="login">
@@ -16,10 +17,8 @@
                 <div class="header">
                      Currency Converter
                 </div>
-
-
                 <div class="labelContainer">
-                        <label for="fromCurrencyValue">Amount: </span>
+                        <label for="fromCurrencyValue">Amount: </label>
                  </div>
 
                 <div class="field_container">
@@ -27,7 +26,7 @@
                 </div>
                 
                 <div class="labelContainer">
-                     <label for="fromCurrency">From Currency: </span>
+                     <label for="fromCurrency">From Currency: </label>
                 </div>
                 <div class="field_container">                        
                         <select name="fromCurrency"  id="fromCurrency">
@@ -35,7 +34,7 @@
                         </select>
                 </div>
                 <div class="labelContainer">
-                        <label for="toCurrency">To Currency: </span>
+                        <label for="toCurrency">To Currency: </label>
                 </div>
 
                 <div class="field_container">
@@ -49,13 +48,16 @@
                     </div>
                 </div>
                 <div class="labelContainer">
-                        <label for="toCurrencyValue">Result: </span>
+                        <label for="toCurrencyValue">Result: </label>
                 </div>
                 <div class="field_container">
                       <input type="text" name="toCurrencyValue" id="toCurrencyValue" readonly="true" />
                 </div>
+                <div class="labelContainer">
+                     <label>Last Updated: </label>
+                     <label id="dateUpdated"></label>
             </form>
     <script src="js/main.js" charset="utf-8"></script>
-    
+    </div>
 </body>
 </html>

@@ -2,9 +2,6 @@ import { LIST_CURRENCIES_API_URL, CONVERT_CURRENCIES_API_URL, COMPACT_QUEARY_PAR
 import Currency from './Currency';
 import localStorageService from './LocalStorageService';
 
-
-const ONE_HOUR_IN_MS = 60 * 60 * 1000;
-
 export default class CurrencyService {
     
     static getListOfCurrencies(){
@@ -37,14 +34,15 @@ export default class CurrencyService {
         let conversionQuery = `${fromCurrency}_${toCurrency}`
         let reverseConversionQuery = `${toCurrency}_${fromCurrency}`
         
-        return localStorageService.findConversionRate(conversionQuery).then(currency =>{
-                //b/c the server refreshes prices every one hour
-                if(currency && (new Date().getTime() - currency.dateCreated) < ONE_HOUR_IN_MS)
-                    return currency.rate * currentValue
-                 
-                return this.convertCurrenciesFromRemote(conversionQuery, reverseConversionQuery, currentValue)
-        })
-
+        return this.convertCurrenciesFromRemote(conversionQuery, reverseConversionQuery, currentValue)
+                   .catch((error) => {
+                        return localStorageService.findConversionRate(conversionQuery).then(currency => {
+                            if(currency)
+                                return {value: currency.rate * currentValue, dateCreated: currency.dateCreated}
+                            else
+                                return {error: true, errorMessage: error}
+                        })
+                   })
     }
 
     static convertCurrenciesFromRemote(conversionQuery, reverseConversionQuery, currentValue){
@@ -57,7 +55,7 @@ export default class CurrencyService {
                     localStorageService.saveConversionRate(reverseConversionQuery, json[reverseConversionQuery])
 
                     let result = json[conversionQuery]
-                    return result * currentValue
+                    return {value: result * currentValue, dateCreated: new Date()}
                 })
     }
 }

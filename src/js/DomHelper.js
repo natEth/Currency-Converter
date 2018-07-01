@@ -19,6 +19,10 @@ export default class DomHelper {
     static setInputValue(element, value){
         element.value = value
     }
+
+    static setText(element, text){
+        element.innerHTML = text
+    }
     
     static populateSelectInput(element, options){
         let {data, textKey, valueKey, clearOptions} = options

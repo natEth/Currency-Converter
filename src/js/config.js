@@ -9,15 +9,8 @@ export const CONVERT_CURRENCIES_API_URL = API_URL +  'api/v5/convert'
 export const COMPACT_QUEARY_PARAM = 'compact=ultra'
 
 //Service Worker
-// export const ROOT_PATH = 'docs'
-export const ROOT_PATH = 'Currency-Converter'
-
-//DOM IDS
-export const FROM_CURRENCY_VALUE_INPUT_ID = 'fromCurrencyValue'
-export const FROM_CURRENCY_SELECT_ID = 'fromCurrency'
-export const CONVERT_BUTTON_ID = 'convert'
-export const TO_CURRENCY_VALUE_INPUT_ID = 'toCurrencyValue'
-export const TO_CURRENCY_SELECT_ID = 'toCurrency'
+export const ROOT_PATH = 'docs'
+// export const ROOT_PATH = 'Currency-Converter'
 
 
 //IDB
