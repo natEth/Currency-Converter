@@ -662,7 +662,7 @@ var LocalStorageService = function () {
                 switch (upgradeDB.oldVersion) {
                     case 0:
                         upgradeDB.createObjectStore(_config.CURRENCIES_STORE_NAME, { keyPath: 'id' });
-                        upgradeDB.createObjectStore(_config.CONVERSION_RATES_STORE_NAME);
+                        upgradeDB.createObjectStore(_config.CONVERSION_RATES_STORE_NAME, { keyPath: 'id' });
 
                 }
             });
@@ -703,7 +703,7 @@ var LocalStorageService = function () {
                 var conversionStore = tx.objectStore(_config.CONVERSION_RATES_STORE_NAME);
 
                 var conversionDbObject = { dateCreated: new Date(), rate: conversionRate, id: coversionString };
-                conversionStore.put(conversionDbObject, conversionDbObject.id);
+                conversionStore.put(conversionDbObject);
 
                 return tx.complete;
             });
@@ -798,7 +798,7 @@ function fetchingListOfCurrencies() {
 function listOfCurrenciesFetched(currencies) {
     var selectOptions = {
         data: currencies.sort(function (c1, c2) {
-            return c1.trim().currencyName > c2.trim().currencyName;
+            return c1.currencyName.trim() > c2.currencyName.trim();
         }),
         valueKey: 'id',
         textKey: 'currencyName',
@@ -814,12 +814,33 @@ function getListOfCurrenciesFailed(error) {
     console.error('Fetch Currency list failed b/c of error: ' + error);
 }
 
+function trackInstalling(serviceWorker) {
+    serviceWorker.addEventListener('statechange', function () {
+        //just update no need to bother the user now
+        if (serviceWorker.state == 'installed') serviceWorker.postMessage({ action: 'skipWaiting' });
+    });
+}
+
 function registerServiceWorker() {
     if (navigator.serviceWorker) {
         navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(function (reg) {
-            return console.log('Service worker registration successful with scope: ' + reg.scope);
+
+            if (navigator.serviceWorker.controller) return;
+
+            if (reg.installing) {
+                trackInstalling(reg.installing);
+                return;
+            }
+
+            reg.addEventListener('updatefound', function () {
+                trackInstalling(reg.installing);
+            });
         }).catch(function (error) {
             return console.error('Service worker failed with error: ' + error);
+        });
+
+        navigator.serviceWorker.addEventListener('controllerchange', function () {
+            window.location.reload();
         });
     }
 }

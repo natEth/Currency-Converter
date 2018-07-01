@@ -1,4 +1,6 @@
-var STATIC_CONTENT_CACHE_NAME = 'currency-converter-cache-v1';
+var STATIC_CONTENT_CACHE_PREFIX = 'currency-converter-cache-v';
+var STATIC_CONTENT_CACHE_VERSION = 6
+var STATIC_CONTENT_CACHE_NAME = STATIC_CONTENT_CACHE_PREFIX + STATIC_CONTENT_CACHE_VERSION
 
 var urlsToCache = [
   '/',
@@ -11,11 +13,25 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(STATIC_CONTENT_CACHE_NAME)
       .then(function(cache) {
-        console.log('Opened cache');
         return cache.addAll(urlsToCache);
       }).catch(error=> console.log("Open Error: "+ error))
   );
 });
+
+self.addEventListener('activate', function(event){
+   event.waitUntil(
+     caches.keys().then(function(keys){
+         var deletePromises = []
+
+         keys.forEach(function(cache){
+            if(cache.startsWith(STATIC_CONTENT_CACHE_PREFIX) 
+                  && STATIC_CONTENT_CACHE_NAME !== cache)               
+              deletePromises.push(caches.delete(STATIC_CONTENT_CACHE_NAME))        })
+
+         return Promise.all(deletePromises)           
+     })
+   )
+})
 
 self.addEventListener('fetch', function(event) {
     event.respondWith(
@@ -48,3 +64,9 @@ self.addEventListener('fetch', function(event) {
         })
       );
   });
+
+
+  self.addEventListener('message', function(event){
+    if(event.data.action == 'skipWaiting')
+      self.skipWaiting()
+  })

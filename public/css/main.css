@@ -1,7 +1,9 @@
 body {
     font-family: 'Open Sans', sans-serif;
+    color: yellow;
 }
 
 input, select {
     margin: 2em;
 }
+

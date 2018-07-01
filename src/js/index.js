@@ -8,7 +8,7 @@ function fetchingListOfCurrencies(){
 
 function listOfCurrenciesFetched(currencies){
     let selectOptions = {
-        data: currencies.sort((c1, c2) => c1.trim().currencyName > c2.trim().currencyName),
+        data: currencies.sort((c1, c2) => c1.currencyName.trim() > c2.currencyName.trim()),
         valueKey: 'id',
         textKey: 'currencyName',
         clearOptions: true
@@ -23,12 +23,38 @@ function getListOfCurrenciesFailed(error){
         console.error(`Fetch Currency list failed b/c of error: ${error}`)
 }
 
+function trackInstalling(serviceWorker){
+    serviceWorker.addEventListener('statechange', function(){
+        //just update no need to bother the user now
+        if(serviceWorker.state == 'installed')
+            serviceWorker.postMessage({action: 'skipWaiting'})
+    })
+}
 
 function registerServiceWorker(){
     if(navigator.serviceWorker){
         navigator.serviceWorker.register('/sw.js', {scope: '/'})
-                .then(reg => console.log(`Service worker registration successful with scope: ${reg.scope}`))
-                .catch(error => console.error(`Service worker failed with error: ${error}`));
+                .then(function(reg){
+                       
+                      if(navigator.serviceWorker.controller)
+                        return
+
+                      if(reg.installing){
+                          trackInstalling(reg.installing)
+                          return
+                      }
+
+                      reg.addEventListener('updatefound' , () => {
+                        trackInstalling(reg.installing)
+                      });
+                          
+                
+                }).catch(error => console.error(`Service worker failed with error: ${error}`));
+        
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            window.location.reload();
+        })
+
      }
 }
 

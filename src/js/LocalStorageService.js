@@ -10,7 +10,7 @@ export default class LocalStorageService {
             switch (upgradeDB.oldVersion) {
               case 0:
                 upgradeDB.createObjectStore(CURRENCIES_STORE_NAME, {keyPath: 'id'});
-                upgradeDB.createObjectStore(CONVERSION_RATES_STORE_NAME);
+                upgradeDB.createObjectStore(CONVERSION_RATES_STORE_NAME, {keyPath: 'id'});
                    
             }
         })
@@ -42,7 +42,7 @@ export default class LocalStorageService {
                 let conversionStore = tx.objectStore(CONVERSION_RATES_STORE_NAME)
 
                 let conversionDbObject = {dateCreated: new Date(), rate: conversionRate, id: coversionString}
-                conversionStore.put(conversionDbObject, conversionDbObject.id)
+                conversionStore.put(conversionDbObject)
 
                 return tx.complete
             })
