@@ -1,4 +1,4 @@
-var STATIC_CONTENT_CACHE_NAME = 'currency-converter-cache-v2';
+var STATIC_CONTENT_CACHE_NAME = 'currency-converter-cache-v1';
 
 var urlsToCache = [
   '/',

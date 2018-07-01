@@ -10,12 +10,28 @@
     <title>Currency Converter</title>
 </head>
 <body>    
-    <div class="form-elements">
-        <input  type="number"  name="fromCurrencyValue" id="fromCurrencyValue"/>
-        <select name="fromCurrency"  id="fromCurrency" />
-        <input type="button" name="Convert" value="Convert" id="convert" />
-        <input type="number" name="toCurrencyValue" id="toCurrencyValue" readonly="true" />
-        <select name="toCurrency" id="toCurrency" />
+    <div class="form-elements">     
+        <div class="col-3">
+            <span>From: </span>
+            <select name="fromCurrency"  id="fromCurrency">
+                <option>loading options..</option>  
+            </select>
+        </div>   
+        <div class="col-3">
+            <span>To: </span>
+            <select name="toCurrency" id="toCurrency">
+                <option>loading options..</option>
+            </select>
+        </div>
+        <div class="col-3">
+            <input  type="number"  name="fromCurrencyValue" id="fromCurrencyValue"/>
+        </div>
+        <div class="col-3">
+            <input type="button" name="Convert" value="Convert" id="convert" />
+        </div>
+        <div class="col-3">
+            <input type="number" name="toCurrencyValue" id="toCurrencyValue" readonly="true" />
+        </div>
     </div>
     <script src="js/main.js" charset="utf-8"></script>
 </body>

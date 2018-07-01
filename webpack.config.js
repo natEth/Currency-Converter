@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = {
     context: path.join(__dirname, "."),
     entry: "./src/js/index.js",
-    mode: "production",
+//    mode: "production",
+    mode: "development",
     output: {
       path: path.resolve(__dirname, "public/js"),
       filename: "main.js"

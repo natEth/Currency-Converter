@@ -6,36 +6,38 @@ export default class LocalStorageService {
     
     static open(){
          return idb.open(DATABASE_NAME, 1, upgradeDB => {
+            //TODO: use key path
             switch (upgradeDB.oldVersion) {
               case 0:
-                upgradeDB.createObjectStore(CURRENCIES_STORE_NAME);
+                upgradeDB.createObjectStore(CURRENCIES_STORE_NAME, {keyPath: 'id'});
                 upgradeDB.createObjectStore(CONVERSION_RATES_STORE_NAME);
+                   
             }
         })
     }
 
-    static saveCurrency(currency){
-        
-        return this.open().then(db => {
+    static saveCurrency(currency, db = null){
+         
+        return (db ? db : this.open()).then(db => {
                 let tx = db.transaction(CURRENCIES_STORE_NAME, IDB_TRANSACTION_TYPE_READ_WRITE)
                 let currencyStore = tx.objectStore(CURRENCIES_STORE_NAME)
-                currencyStore.put(currency, currency.id)
+                currencyStore.put(currency)
                 return tx.complete
             })
     }
 
-    static getAllCurrencies(){
+    static getAllCurrencies(db = null){
         
-        return this.open().then(db => {
+        return (db ? db : this.open()).then(db => {
             let tx = db.transaction(CURRENCIES_STORE_NAME, IDB_TRANSACTION_TYPE_READ_ONLY)
             let currencyStore = tx.objectStore(CURRENCIES_STORE_NAME)
             return currencyStore.getAll();
         })
     }
 
-    static saveConversionRate(coversionString, conversionRate){
+    static saveConversionRate(coversionString, conversionRate, db = null){
         
-        return this.open().then(db => {
+        return (db ? db : this.open()).then(db => {
                 let tx = db.transaction(CONVERSION_RATES_STORE_NAME, IDB_TRANSACTION_TYPE_READ_WRITE)
                 let conversionStore = tx.objectStore(CONVERSION_RATES_STORE_NAME)
 
@@ -46,8 +48,9 @@ export default class LocalStorageService {
             })
     }
 
-    static findConversionRate(coversionString){
-        return this.open().then(db => {
+    static findConversionRate(coversionString, db = null){
+        
+        return (db ? db : this.open()).then(db => {
                 let tx = db.transaction(CONVERSION_RATES_STORE_NAME, IDB_TRANSACTION_TYPE_READ_ONLY)
                 let conversionStore = tx.objectStore(CONVERSION_RATES_STORE_NAME)
 
