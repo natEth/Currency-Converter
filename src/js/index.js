@@ -36,8 +36,15 @@ function registerServiceWorker(){
         navigator.serviceWorker.register('/sw.js', {scope: '/'})
                 .then(function(reg){
                        
-                      if(navigator.serviceWorker.controller)
+                      if(!navigator.serviceWorker.controller)
                         return
+
+                        //just update no need to bother the user now
+                        if(reg.waiting){
+                            reg.waiting.postMessage({action: 'skipWaiting'})
+                            return
+                        }
+                          
 
                       if(reg.installing){
                           trackInstalling(reg.installing)

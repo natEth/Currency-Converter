@@ -1,12 +1,13 @@
 var STATIC_CONTENT_CACHE_PREFIX = 'currency-converter-cache-v';
-var STATIC_CONTENT_CACHE_VERSION = 6
+var STATIC_CONTENT_CACHE_VERSION = 2
 var STATIC_CONTENT_CACHE_NAME = STATIC_CONTENT_CACHE_PREFIX + STATIC_CONTENT_CACHE_VERSION
 
 var urlsToCache = [
   '/',
   '/css/main.css',
   '/js/main.js',
-  '/img/favicon.ico'
+  '/img/favicon.ico',
+  'https://fonts.googleapis.com/css?family=Open+Sans'
 ];
 
 self.addEventListener('install', function(event) {
@@ -21,16 +22,13 @@ self.addEventListener('install', function(event) {
 self.addEventListener('activate', function(event){
    event.waitUntil(
      caches.keys().then(function(keys){
-         var deletePromises = []
-
-         keys.forEach(function(cache){
-            if(cache.startsWith(STATIC_CONTENT_CACHE_PREFIX) 
-                  && STATIC_CONTENT_CACHE_NAME !== cache)               
-              deletePromises.push(caches.delete(STATIC_CONTENT_CACHE_NAME))        })
-
-         return Promise.all(deletePromises)           
-     })
-   )
+         return Promise.all(keys.filter(function(key){
+            return key.startsWith(STATIC_CONTENT_CACHE_PREFIX) 
+                     && key != STATIC_CONTENT_CACHE_NAME      
+          }).map(function(key){
+              return caches.delete(key)
+          }))
+     }));
 })
 
 self.addEventListener('fetch', function(event) {
